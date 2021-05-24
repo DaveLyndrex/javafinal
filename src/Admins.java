@@ -4,19 +4,45 @@
  * and open the template in the editor.
  */
 
-/**
- *
- * @author 2ndyrGroupA
- */
+import java.sql.*;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 public class Admins extends javax.swing.JFrame {
-
+    ResultSet rs = null;
+    PreparedStatement pst =null;
     /**
      * Creates new form Admins
      */
     public Admins() {
         initComponents();
     }
+    
+      public void getdata() {
+       int count = 0;
+      
+       try {
+           Class.forName("com.mysql.jdbc.Driver");
+           Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javafinal", "root", "");
+           Statement stmt = con.createStatement();
 
+           ResultSet datas = stmt.executeQuery("select * from `admin`");
+           DefaultTableModel model = (DefaultTableModel) adminTable.getModel();
+           while (datas.next()) {
+              
+               count = 1;
+               model.addRow(new Object[]{datas.getInt("admin_id"), datas.getString("firstname"), datas.getString("lastname"), datas.getString("username"), datas.getString("password")});
+
+           }
+
+           if (count == 0) {
+               JOptionPane.showMessageDialog(null, "No data found!.", "Alert", JOptionPane.WARNING_MESSAGE);
+           }
+           con.close();
+       } catch (Exception e) {
+           System.out.println(e.getMessage());
+       }
+
+   }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,13 +56,13 @@ public class Admins extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        adminTable = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
+        backToAdminPage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(620, 480));
-        setPreferredSize(new java.awt.Dimension(645, 510));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(690, 480));
@@ -64,8 +90,8 @@ public class Admins extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        jTable2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        adminTable.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        adminTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -84,19 +110,24 @@ public class Admins extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jTable2.setGridColor(new java.awt.Color(51, 51, 51));
-        jScrollPane2.setViewportView(jTable2);
+        adminTable.setGridColor(new java.awt.Color(51, 51, 51));
+        jScrollPane2.setViewportView(adminTable);
 
         jButton1.setBackground(new java.awt.Color(10, 117, 240));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Add Admin");
 
-        jLabel7.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(10, 117, 240));
-        jLabel7.setText(" ← back ");
-        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        backToAdminPage.setBackground(new java.awt.Color(0, 0, 0));
+        backToAdminPage.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        backToAdminPage.setForeground(new java.awt.Color(10, 117, 240));
+        backToAdminPage.setText(" ← back ");
+        backToAdminPage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        backToAdminPage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backToAdminPageMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -104,7 +135,7 @@ public class Admins extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(backToAdminPage, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(132, 132, 132)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -121,7 +152,7 @@ public class Admins extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                    .addComponent(backToAdminPage))
                 .addGap(2, 2, 2)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -137,11 +168,15 @@ public class Admins extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backToAdminPageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backToAdminPageMouseClicked
+        new AdminPage().setVisible(true);
+    }//GEN-LAST:event_backToAdminPageMouseClicked
 
     /**
      * @param args the command line arguments
@@ -179,12 +214,12 @@ public class Admins extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable adminTable;
+    private javax.swing.JLabel backToAdminPage;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }

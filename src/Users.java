@@ -4,10 +4,8 @@
  * and open the template in the editor.
  */
 
-/**
- *
- * @author 2ndyrGroupA
- */
+import java.sql.*;
+import javax.swing.JOptionPane;
 public class Users extends javax.swing.JFrame {
 
     /**
@@ -32,7 +30,7 @@ public class Users extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
+        back = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -104,16 +102,26 @@ public class Users extends javax.swing.JFrame {
         jButton1.setText("Add User");
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 80, -1, 30));
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(10, 117, 240));
-        jLabel7.setText(" ← back ");
-        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, -1));
+        back.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        back.setForeground(new java.awt.Color(10, 117, 240));
+        back.setText(" ← back ");
+        back.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        back.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backMouseClicked(evt);
+            }
+        });
+        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 640, 480));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
+        new AdminPage().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_backMouseClicked
 
     /**
      * @param args the command line arguments
@@ -151,9 +159,9 @@ public class Users extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel back;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;

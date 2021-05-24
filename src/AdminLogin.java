@@ -3,11 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-/**
- *
- * @author 2ndyrGroupA
- */
+import java.sql.*;
+import javax.swing.JOptionPane;
 public class AdminLogin extends javax.swing.JFrame {
 
     /**
@@ -37,7 +34,8 @@ public class AdminLogin extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        backToUserLogin = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -50,9 +48,12 @@ public class AdminLogin extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel19 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(685, 490));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -77,8 +78,6 @@ public class AdminLogin extends javax.swing.JFrame {
         jLabel2.setText("Inventory Management System.");
         jLabel2.setFocusable(false);
         container1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 260, 24));
-
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\2ndyrGroupA\\Pictures\\java\\2.jpg")); // NOI18N
         container1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, -1, 250));
 
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -115,12 +114,20 @@ public class AdminLogin extends javax.swing.JFrame {
         jLabel7.setText("Administrator");
         container1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 200, -1));
 
-        jLabel11.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText(" ← back ");
-        jLabel11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        container1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, -1));
+        backToUserLogin.setBackground(new java.awt.Color(255, 255, 255));
+        backToUserLogin.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        backToUserLogin.setForeground(new java.awt.Color(255, 255, 255));
+        backToUserLogin.setText(" ← back ");
+        backToUserLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        backToUserLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backToUserLoginMouseClicked(evt);
+            }
+        });
+        container1.add(backToUserLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, -1));
+
+        jLabel18.setIcon(new javax.swing.ImageIcon("C:\\Users\\1styrGroupC\\Documents\\NetBeansProjects\\javafinal\\Images\\2.jpg")); // NOI18N
+        container1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, -1, -1));
 
         jPanel1.add(container1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 344, 490));
 
@@ -189,7 +196,7 @@ public class AdminLogin extends javax.swing.JFrame {
                 .addContainerGap(58, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 130, 290, -1));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 140, 290, -1));
 
         jLabel16.setForeground(new java.awt.Color(10, 117, 240));
         jLabel16.setText("_________________________________________");
@@ -210,10 +217,37 @@ public class AdminLogin extends javax.swing.JFrame {
         jLabel8.setText(" Inventory Management System");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(354, 42, 300, 40));
 
+        jPanel2.setBackground(new java.awt.Color(10, 117, 240));
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel19.setText("Log in");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(79, 79, 79))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 100, 40));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 490));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backToUserLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backToUserLoginMouseClicked
+        new UserLogin().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_backToUserLoginMouseClicked
 
     /**
      * @param args the command line arguments
@@ -251,17 +285,19 @@ public class AdminLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel backToUserLogin;
     private javax.swing.JPanel container1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -271,6 +307,7 @@ public class AdminLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;

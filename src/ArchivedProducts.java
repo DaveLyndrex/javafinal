@@ -4,10 +4,8 @@
  * and open the template in the editor.
  */
 
-/**
- *
- * @author 2ndyrGroupA
- */
+import java.sql.*;
+import javax.swing.JOptionPane;
 public class ArchivedProducts extends javax.swing.JFrame {
 
     /**

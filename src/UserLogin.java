@@ -4,10 +4,8 @@
  * and open the template in the editor.
  */
 
-/**
- *
- * @author 2ndyrGroupA
- */
+import java.sql.*;
+import javax.swing.JOptionPane;
 public class UserLogin extends javax.swing.JFrame {
 
     /**
@@ -33,7 +31,7 @@ public class UserLogin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        toSignup = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -50,9 +48,10 @@ public class UserLogin extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        toAdmin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setPreferredSize(new java.awt.Dimension(660, 487));
 
@@ -77,8 +76,6 @@ public class UserLogin extends javax.swing.JFrame {
         jLabel2.setText("Inventory Management System.");
         jLabel2.setFocusable(false);
         container1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 260, 24));
-
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\2ndyrGroupA\\Pictures\\java\\2.jpg")); // NOI18N
         container1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, -1, 250));
 
         jLabel4.setBackground(new java.awt.Color(0, 0, 0));
@@ -86,16 +83,21 @@ public class UserLogin extends javax.swing.JFrame {
         jLabel4.setText("Don't have an account?");
         container1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 14, -1, 20));
 
-        jButton1.setBackground(new java.awt.Color(76, 163, 160));
-        jButton1.setText("Sign up");
-        jButton1.setBorder(null);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        toSignup.setBackground(new java.awt.Color(76, 163, 160));
+        toSignup.setText("Sign up");
+        toSignup.setBorder(null);
+        toSignup.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        toSignup.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toSignupMouseClicked(evt);
             }
         });
-        container1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 70, 30));
+        toSignup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toSignupActionPerformed(evt);
+            }
+        });
+        container1.add(toSignup, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 70, 30));
 
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("______________________________________________________");
@@ -223,11 +225,16 @@ public class UserLogin extends javax.swing.JFrame {
         jLabel16.setText("___________________________________________");
         jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(362, 468, 370, 19));
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(10, 117, 240));
-        jLabel7.setText(" Admin →");
-        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, 60, -1));
+        toAdmin.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        toAdmin.setForeground(new java.awt.Color(10, 117, 240));
+        toAdmin.setText(" Admin →");
+        toAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        toAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toAdminMouseClicked(evt);
+            }
+        });
+        jPanel2.add(toAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, 60, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -235,19 +242,13 @@ public class UserLogin extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 680, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 680, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 490, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -258,15 +259,25 @@ public class UserLogin extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void toSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toSignupActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_toSignupActionPerformed
+
+    private void toAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toAdminMouseClicked
+        new AdminLogin().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_toAdminMouseClicked
+
+    private void toSignupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toSignupMouseClicked
+        new UserSignup().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_toSignupMouseClicked
 
     /**
      * @param args the command line arguments
@@ -305,7 +316,6 @@ public class UserLogin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel container1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -320,7 +330,6 @@ public class UserLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -329,5 +338,7 @@ public class UserLogin extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel toAdmin;
+    private javax.swing.JButton toSignup;
     // End of variables declaration//GEN-END:variables
 }

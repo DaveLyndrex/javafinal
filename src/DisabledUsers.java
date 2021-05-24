@@ -4,10 +4,8 @@
  * and open the template in the editor.
  */
 
-/**
- *
- * @author 2ndyrGroupA
- */
+import java.sql.*;
+import javax.swing.JOptionPane;
 public class DisabledUsers extends javax.swing.JFrame {
 
     /**
@@ -31,7 +29,7 @@ public class DisabledUsers extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jLabel7 = new javax.swing.JLabel();
+        backToAdminPage = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -86,11 +84,16 @@ public class DisabledUsers extends javax.swing.JFrame {
         jTable2.setGridColor(new java.awt.Color(51, 51, 51));
         jScrollPane2.setViewportView(jTable2);
 
-        jLabel7.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(10, 117, 240));
-        jLabel7.setText(" ← back ");
-        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        backToAdminPage.setBackground(new java.awt.Color(0, 0, 0));
+        backToAdminPage.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        backToAdminPage.setForeground(new java.awt.Color(10, 117, 240));
+        backToAdminPage.setText(" ← back ");
+        backToAdminPage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        backToAdminPage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backToAdminPageMouseClicked(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(10, 117, 240));
@@ -104,7 +107,7 @@ public class DisabledUsers extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(backToAdminPage, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(147, 147, 147)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -123,7 +126,7 @@ public class DisabledUsers extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                    .addComponent(backToAdminPage))
                 .addGap(48, 48, 48)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(142, Short.MAX_VALUE))
@@ -147,6 +150,11 @@ public class DisabledUsers extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backToAdminPageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backToAdminPageMouseClicked
+        new AdminPage().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_backToAdminPageMouseClicked
 
     /**
      * @param args the command line arguments
@@ -184,8 +192,8 @@ public class DisabledUsers extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel backToAdminPage;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
