@@ -41,7 +41,7 @@ public class UserRequests extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Users Ordered Products");
+        jLabel1.setText("Users Requests");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -65,6 +65,11 @@ public class UserRequests extends javax.swing.JFrame {
         backToAdminPage.setForeground(new java.awt.Color(10, 117, 240));
         backToAdminPage.setText(" ← back ");
         backToAdminPage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        backToAdminPage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backToAdminPageMouseClicked(evt);
+            }
+        });
 
         jTable2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -98,10 +103,10 @@ public class UserRequests extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(backToAdminPage, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(109, 109, 109)
+                        .addGap(159, 159, 159)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 159, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -129,6 +134,11 @@ public class UserRequests extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backToAdminPageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backToAdminPageMouseClicked
+        new AdminPage().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_backToAdminPageMouseClicked
 
     /**
      * @param args the command line arguments

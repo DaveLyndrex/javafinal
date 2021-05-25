@@ -132,7 +132,7 @@ public class UserSignup extends javax.swing.JFrame {
         jLabel15.setText("_____________________________________________");
         container1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(78, 434, 290, 30));
 
-        jPanel2.add(container1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 0, 350, 490));
+        jPanel2.add(container1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 0, 340, 490));
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic Medium", 0, 14)); // NOI18N
         jLabel5.setText(" Password:");
@@ -270,6 +270,21 @@ public class UserSignup extends javax.swing.JFrame {
         String username = inputUsername.getText();
         String password = inputPassword.getText();
         
+         try{
+           Class.forName("com.mysql.jdbc.Driver"); //load the driver
+           Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javafinal", "root", ""); //establishes the connection
+           Statement stmt = (Statement) con.createStatement(); //get the connection stream(connection port)
+           String query = "INSERT INTO `users` (`user_id`,`firstname`, `lastname`, `username`, `password`) VALUES (NULL, '"+firstname+"', '"+lastname+"', '"+username+"', '"+password+"')";
+           stmt.executeUpdate(query);
+          
+           JOptionPane.showMessageDialog(this,"Added Successfully.");
+           new UserLogin().setVisible(true);
+           this.setVisible(false);
+           con.close();
+           
+        }catch (Exception e) {
+           System.out.println(e);
+       }
         
     }//GEN-LAST:event_signupMouseClicked
 

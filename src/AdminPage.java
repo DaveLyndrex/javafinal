@@ -32,7 +32,7 @@ public class AdminPage extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        adminName = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         searchField = new javax.swing.JTextField();
@@ -41,8 +41,9 @@ public class AdminPage extends javax.swing.JFrame {
         dashboardDropDown = new javax.swing.JComboBox<>();
         productsDropDown = new javax.swing.JComboBox<>();
         showRequestsDropDown = new javax.swing.JComboBox<>();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        showProductArchivedDropDown = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
+        signout = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -120,11 +121,11 @@ public class AdminPage extends javax.swing.JFrame {
         container1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 110, -1));
         container1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 40, 40));
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Name");
-        container1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 70, 20));
+        adminName.setBackground(new java.awt.Color(255, 255, 255));
+        adminName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        adminName.setForeground(new java.awt.Color(255, 255, 255));
+        adminName.setText("Name");
+        container1.add(adminName, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 70, 20));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -144,6 +145,7 @@ public class AdminPage extends javax.swing.JFrame {
         container1.add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 98, 25));
 
         search.setBackground(new java.awt.Color(255, 255, 255));
+        search.setIcon(new javax.swing.ImageIcon("C:\\Users\\2ndyrGroupA\\Documents\\NetBeansProjects\\javafinal\\Images\\rsz_1search.png")); // NOI18N
         search.setMaximumSize(new java.awt.Dimension(50, 29));
         search.setMinimumSize(new java.awt.Dimension(50, 29));
         search.setPreferredSize(new java.awt.Dimension(50, 20));
@@ -184,11 +186,27 @@ public class AdminPage extends javax.swing.JFrame {
         });
         container1.add(showRequestsDropDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 125, -1));
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Product Archived" }));
-        container1.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 125, -1));
+        showProductArchivedDropDown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Product Archived" }));
+        showProductArchivedDropDown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showProductArchivedDropDownActionPerformed(evt);
+            }
+        });
+        container1.add(showProductArchivedDropDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 125, -1));
 
         jButton2.setText("About us");
         container1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 82, -1));
+
+        signout.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        signout.setForeground(new java.awt.Color(255, 255, 255));
+        signout.setText("Sign out");
+        signout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        signout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                signoutMouseClicked(evt);
+            }
+        });
+        container1.add(signout, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
 
         jPanel1.add(container1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 145, 490));
 
@@ -557,6 +575,18 @@ public class AdminPage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_showRequestsDropDownActionPerformed
 
+    private void showProductArchivedDropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showProductArchivedDropDownActionPerformed
+        if(this.showProductArchivedDropDown.getSelectedIndex() == 0){
+            new ArchivedProducts().setVisible(true);
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_showProductArchivedDropDownActionPerformed
+
+    private void signoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signoutMouseClicked
+        new AdminLogin().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_signoutMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -568,7 +598,7 @@ public class AdminPage extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -593,11 +623,10 @@ public class AdminPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel adminName;
     private javax.swing.JPanel container1;
     private javax.swing.JComboBox<String> dashboardDropDown;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -643,6 +672,8 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> productsDropDown;
     private javax.swing.JButton search;
     private javax.swing.JTextField searchField;
+    private javax.swing.JComboBox<String> showProductArchivedDropDown;
     private javax.swing.JComboBox<String> showRequestsDropDown;
+    private javax.swing.JLabel signout;
     // End of variables declaration//GEN-END:variables
 }

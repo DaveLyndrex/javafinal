@@ -6,6 +6,7 @@
 
 import java.sql.*;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 public class Users extends javax.swing.JFrame {
 
     /**
@@ -13,6 +14,34 @@ public class Users extends javax.swing.JFrame {
      */
     public Users() {
         initComponents();
+        getData();
+    }
+    
+    public void getData(){
+        int count = 0;
+        
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javafinal","root","");
+            Statement stmt = con.createStatement();
+            
+            ResultSet data = stmt.executeQuery("SELECT * FROM `users`");
+            DefaultTableModel model = (DefaultTableModel) userTable.getModel();
+            
+            while (data.next()){
+                
+                count = 1;
+                model.addRow(new Object[]{data.getInt("user_id"), data.getString("firstname"), data.getString("lastname"), data.getString("username"), data.getString("password"), data.getString("status")});                                                 
+            }
+            
+            if (count == 0){
+                 JOptionPane.showMessageDialog(null, "No data found!.", "Alert", JOptionPane.WARNING_MESSAGE);        
+            }
+            con.close();
+            
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -28,9 +57,12 @@ public class Users extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        back = new javax.swing.JLabel();
+        userTable = new javax.swing.JTable();
+        addUser = new javax.swing.JButton();
+        backToAdminPage = new javax.swing.JLabel();
+        updateBtn = new javax.swing.JButton();
+        openUserAccount = new javax.swing.JButton();
+        deleteBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -66,62 +98,144 @@ public class Users extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 250, 70));
 
-        jTable2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        userTable.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        userTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "Username", "Email", "Password", "Status", "Action", "Add"
+                "ID", "First Name", "Last Name", "Username", "Password", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jTable2.setGridColor(new java.awt.Color(51, 51, 51));
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setResizable(false);
-            jTable2.getColumnModel().getColumn(2).setResizable(false);
-            jTable2.getColumnModel().getColumn(4).setResizable(false);
-        }
+        userTable.setGridColor(new java.awt.Color(51, 51, 51));
+        jScrollPane2.setViewportView(userTable);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 470, 250));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 620, 270));
 
-        jButton1.setBackground(new java.awt.Color(10, 117, 240));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Add User");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 80, -1, 30));
-
-        back.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        back.setForeground(new java.awt.Color(10, 117, 240));
-        back.setText(" ← back ");
-        back.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        back.addMouseListener(new java.awt.event.MouseAdapter() {
+        addUser.setBackground(new java.awt.Color(10, 117, 240));
+        addUser.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        addUser.setForeground(new java.awt.Color(255, 255, 255));
+        addUser.setText("Add User");
+        addUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                backMouseClicked(evt);
+                addUserMouseClicked(evt);
             }
         });
-        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, -1));
+        jPanel1.add(addUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 90, -1, 30));
+
+        backToAdminPage.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        backToAdminPage.setForeground(new java.awt.Color(10, 117, 240));
+        backToAdminPage.setText(" ← back ");
+        backToAdminPage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        backToAdminPage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backToAdminPageMouseClicked(evt);
+            }
+        });
+        jPanel1.add(backToAdminPage, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, -1));
+
+        updateBtn.setBackground(new java.awt.Color(0, 153, 0));
+        updateBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        updateBtn.setForeground(new java.awt.Color(255, 255, 255));
+        updateBtn.setText("Update");
+        updateBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        updateBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                updateBtnMouseClicked(evt);
+            }
+        });
+        updateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateBtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(updateBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(457, 413, 80, 30));
+
+        openUserAccount.setBackground(new java.awt.Color(255, 255, 0));
+        openUserAccount.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        openUserAccount.setText("Open User Account");
+        openUserAccount.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        openUserAccount.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                openUserAccountMouseClicked(evt);
+            }
+        });
+        jPanel1.add(openUserAccount, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, -1, 30));
+
+        deleteBtn.setBackground(new java.awt.Color(255, 0, 51));
+        deleteBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        deleteBtn.setForeground(new java.awt.Color(255, 255, 255));
+        deleteBtn.setText("Delete");
+        deleteBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        deleteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deleteBtnMouseClicked(evt);
+            }
+        });
+        jPanel1.add(deleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 413, -1, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 640, 480));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
+    private void backToAdminPageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backToAdminPageMouseClicked
         new AdminPage().setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_backMouseClicked
+    }//GEN-LAST:event_backToAdminPageMouseClicked
+
+    private void addUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addUserMouseClicked
+        new AddUser().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_addUserMouseClicked
+     Update update = new Update();
+    
+    private void updateBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateBtnMouseClicked
+       
+        DefaultTableModel model = (DefaultTableModel) userTable.getModel();
+        int row = userTable.getSelectedRow();
+        String id = model.getValueAt(row, 0).toString();
+        String firstname = model.getValueAt(row, 1).toString();
+        String lastname = model.getValueAt(row, 2).toString();
+        String username = model.getValueAt(row, 3).toString();
+        String password = model.getValueAt(row, 4).toString();
+        
+        update.pack();
+        update.getDefaultCloseOperation();
+        update.user_id.setText(id);
+        update.inputFirstname.setText(firstname);
+        update.inputLastname.setText(lastname);
+        update.inputUsername.setText(username);
+        update.inputPassword.setText(password);
+        
+        update.setVisible(true);
+        this.setVisible(false);
+        
+    }//GEN-LAST:event_updateBtnMouseClicked
+
+   
+    
+    private void openUserAccountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_openUserAccountMouseClicked
+        new UserLogin().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_openUserAccountMouseClicked
+
+    private void deleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteBtnMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deleteBtnMouseClicked
+
+    private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updateBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -159,12 +273,15 @@ public class Users extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel back;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton addUser;
+    private javax.swing.JLabel backToAdminPage;
+    private javax.swing.JButton deleteBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JButton openUserAccount;
+    private javax.swing.JButton updateBtn;
+    private javax.swing.JTable userTable;
     // End of variables declaration//GEN-END:variables
 }
