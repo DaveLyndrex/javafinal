@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 
-import java.sql.*;
-import javax.swing.JOptionPane;
+import java.sql.*;//mysql database
+import javax.swing.JOptionPane;//alert messages
 public class AddAdmin extends javax.swing.JFrame {
 
     /**
@@ -13,6 +13,7 @@ public class AddAdmin extends javax.swing.JFrame {
      */
     public AddAdmin() {
         initComponents();
+        this.setLocationRelativeTo(null);//setting the jframe into center
     }
 
     /**
@@ -30,13 +31,13 @@ public class AddAdmin extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        inputPassword = new javax.swing.JTextField();
         inputUsername = new javax.swing.JTextField();
         signup = new javax.swing.JButton();
         inputFname = new javax.swing.JTextField();
         inputLname = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
+        inputPassword = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -79,12 +80,6 @@ public class AddAdmin extends javax.swing.JFrame {
         jLabel6.setText("Last Name:");
         jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        inputPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputPasswordActionPerformed(evt);
-            }
-        });
-
         signup.setBackground(new java.awt.Color(76, 163, 150));
         signup.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         signup.setText("Add");
@@ -117,14 +112,14 @@ public class AddAdmin extends javax.swing.JFrame {
                             .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(inputPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputFname, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputLname, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(inputFname, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                    .addComponent(inputLname, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                    .addComponent(inputUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                    .addComponent(inputPassword))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(137, Short.MAX_VALUE)
                 .addComponent(signup, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(61, 61, 61))
         );
@@ -144,9 +139,9 @@ public class AddAdmin extends javax.swing.JFrame {
                     .addComponent(inputUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                    .addComponent(inputPassword))
                 .addGap(18, 18, 18)
                 .addComponent(signup, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -308,25 +303,21 @@ public class AddAdmin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void inputPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inputPasswordActionPerformed
-
+    //sign up button on click function
     private void signupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signupMouseClicked
         String firstname = inputFname.getText();
         String lastname = inputLname.getText();
         String username = inputUsername.getText();
         String password = inputPassword.getText();
         
-        
+        //inserting data to database in the table admin.
         try{
            Class.forName("com.mysql.jdbc.Driver"); //load the driver
            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javafinal", "root", ""); //establishes the connection
            Statement stmt = (Statement) con.createStatement(); //get the connection stream(connection port)
            String query = "INSERT INTO `admins` (`admin_id`, `firstname`, `lastname`, `username`, `password`) VALUES (NULL, '"+firstname+"', '"+lastname+"', '"+username+"', '"+password+"')";
            stmt.executeUpdate(query);
-          
+          //message of the process is successful.
            JOptionPane.showMessageDialog(this,"Added Successfully.");
            new Admins().setVisible(true);
            this.setVisible(false);
@@ -338,7 +329,7 @@ public class AddAdmin extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_signupMouseClicked
-
+//back to admin onclick function
     private void backToAdminsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backToAdminsMouseClicked
         new Admins().setVisible(true);
         this.setVisible(false);
@@ -385,7 +376,7 @@ public class AddAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel container1;
     private javax.swing.JTextField inputFname;
     private javax.swing.JTextField inputLname;
-    private javax.swing.JTextField inputPassword;
+    private javax.swing.JPasswordField inputPassword;
     private javax.swing.JTextField inputUsername;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

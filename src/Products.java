@@ -5,6 +5,7 @@
  */
 
 import java.sql.*;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 public class Products extends javax.swing.JFrame {
@@ -14,6 +15,7 @@ public class Products extends javax.swing.JFrame {
      */
     public Products() {
         initComponents();
+        this.setLocationRelativeTo(null);
         getData();
     }
     
@@ -59,8 +61,9 @@ public class Products extends javax.swing.JFrame {
         productTable = new javax.swing.JTable();
         addProducts = new javax.swing.JButton();
         backToAdminPage = new javax.swing.JLabel();
-        addProducts1 = new javax.swing.JButton();
-        addProducts2 = new javax.swing.JButton();
+        deleteBtn = new javax.swing.JButton();
+        updateBtn = new javax.swing.JButton();
+        archiveProductBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(620, 480));
@@ -133,25 +136,35 @@ public class Products extends javax.swing.JFrame {
             }
         });
 
-        addProducts1.setBackground(new java.awt.Color(255, 0, 51));
-        addProducts1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        addProducts1.setForeground(new java.awt.Color(255, 255, 255));
-        addProducts1.setText("Update");
-        addProducts1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        addProducts1.addMouseListener(new java.awt.event.MouseAdapter() {
+        deleteBtn.setBackground(new java.awt.Color(255, 0, 51));
+        deleteBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        deleteBtn.setForeground(new java.awt.Color(255, 255, 255));
+        deleteBtn.setText("Delete");
+        deleteBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        deleteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addProducts1MouseClicked(evt);
+                deleteBtnMouseClicked(evt);
             }
         });
 
-        addProducts2.setBackground(new java.awt.Color(0, 153, 0));
-        addProducts2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        addProducts2.setForeground(new java.awt.Color(255, 255, 255));
-        addProducts2.setText("Edit");
-        addProducts2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        addProducts2.addMouseListener(new java.awt.event.MouseAdapter() {
+        updateBtn.setBackground(new java.awt.Color(0, 153, 0));
+        updateBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        updateBtn.setForeground(new java.awt.Color(255, 255, 255));
+        updateBtn.setText("Update");
+        updateBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        updateBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addProducts2MouseClicked(evt);
+                updateBtnMouseClicked(evt);
+            }
+        });
+
+        archiveProductBtn.setBackground(new java.awt.Color(255, 255, 51));
+        archiveProductBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        archiveProductBtn.setText("Archive Product");
+        archiveProductBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        archiveProductBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                archiveProductBtnMouseClicked(evt);
             }
         });
 
@@ -162,20 +175,21 @@ public class Products extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(addProducts))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(archiveProductBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(updateBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(deleteBtn))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(backToAdminPage, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(240, 240, 240))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(addProducts, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(addProducts2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(addProducts1)))))
+                        .addGap(240, 240, 240)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -191,8 +205,9 @@ public class Products extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addProducts2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addProducts1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(archiveProductBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
@@ -220,13 +235,105 @@ public class Products extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_addProductsMouseClicked
 
-    private void addProducts1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addProducts1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addProducts1MouseClicked
+    UpdateProduct UpdateProduct = new UpdateProduct();
+    private void updateBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateBtnMouseClicked
+        DefaultTableModel model = (DefaultTableModel) productTable.getModel();
+        int row = productTable.getSelectedRow();
+        
+        String id = model.getValueAt(row, 0).toString();
+        String photo = model.getValueAt(row, 1).toString();
+        String name = model.getValueAt(row, 2).toString();
+        String brand = model.getValueAt(row, 3).toString();
+        String description = model.getValueAt(row, 4).toString();
+        String price = model.getValueAt(row, 5).toString();
+        String stocks = model.getValueAt(row, 6).toString();
 
-    private void addProducts2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addProducts2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addProducts2MouseClicked
+        UpdateProduct.pack();
+        UpdateProduct.getDefaultCloseOperation();
+        UpdateProduct.product_id.setText(id);
+        UpdateProduct.photo.setText(photo);
+        UpdateProduct.name.setText(name);
+        UpdateProduct.brand.setText(brand);
+        UpdateProduct.description.setText(description);
+        UpdateProduct.price.setText(price);
+        UpdateProduct.stocks.setText(stocks);
+
+        UpdateProduct.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_updateBtnMouseClicked
+
+    private void deleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteBtnMouseClicked
+         DefaultTableModel model = (DefaultTableModel) productTable.getModel();
+        int row = productTable.getSelectedRow();
+       
+       try{
+           
+           JFrame frame = new JFrame ("Delete");
+           if (JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete?","Delete", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+               int identify = Integer.parseInt(model.getValueAt(row, 0).toString());
+               Class.forName("com.mysql.jdbc.Driver");
+               Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javafinal","root","");
+               PreparedStatement stmt = con.prepareStatement("DELETE FROM products WHERE product_id =?");
+               stmt.setInt(1,identify);
+               stmt.executeUpdate();
+               model.removeRow(row);
+               
+               JOptionPane.showMessageDialog(null, "Deleted Successfully!", "Alert", JOptionPane.INFORMATION_MESSAGE);
+           }
+       }catch (Exception e){
+           JOptionPane.showMessageDialog(null, e.getMessage(),"Alert", JOptionPane.WARNING_MESSAGE);
+       }
+    }//GEN-LAST:event_deleteBtnMouseClicked
+
+    private void archiveProductBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_archiveProductBtnMouseClicked
+         DefaultTableModel model = (DefaultTableModel) productTable.getModel();
+        int row = productTable.getSelectedRow();
+        try{
+            JFrame frame = new JFrame("Archive Product");
+            if(JOptionPane.showConfirmDialog(frame, "Are you sure you want to archive this product?","Super Admin Message", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+               int identify = Integer.parseInt(model.getValueAt(row, 0).toString());
+               String photo = (model.getValueAt(row, 1).toString());
+               String name = (model.getValueAt(row, 2).toString());
+               String brand = (model.getValueAt(row, 3).toString());
+               String description = (model.getValueAt(row, 4).toString());
+               String price = (model.getValueAt(row, 5).toString());
+               String stocks = (model.getValueAt(row, 6).toString());      
+               
+               Class.forName("com.mysql.jdbc.Driver");
+               Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javafinal","root","");
+               PreparedStatement stmt = con.prepareStatement ("INSERT INTO `archivedproducts` (`product_id`,`photo`,`name`, `brand`, `description`, `price`, `stocks`) VALUES (default,?,?,?,?,?,?)");
+               PreparedStatement stmt1 = con.prepareStatement("DELETE FROM products WHERE product_id =?");
+               
+               
+               stmt.setString(1,photo);
+               stmt.setString(2,name);
+               stmt.setString(3,brand);
+               stmt.setString(4,description);
+               stmt.setString(5,price);
+               stmt.setString(6,stocks);
+        
+               stmt.executeUpdate();
+                
+               stmt1.setInt(1,identify);
+               stmt1.executeUpdate();
+               model.removeRow(row);
+               
+               stmt1.executeUpdate();
+              
+                     
+               JOptionPane.showMessageDialog(null, "Successfully Archived.", "Message from MySQL", JOptionPane.INFORMATION_MESSAGE);
+               
+               new ArchivedProducts().setVisible(true);
+               this.setVisible(false);
+               
+               JOptionPane.showMessageDialog(null, "New data added.", "Message from MySQL", JOptionPane.INFORMATION_MESSAGE);
+               
+            }
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage(),"Message from MySQL", JOptionPane.WARNING_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_archiveProductBtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -265,13 +372,14 @@ public class Products extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addProducts;
-    private javax.swing.JButton addProducts1;
-    private javax.swing.JButton addProducts2;
+    private javax.swing.JButton archiveProductBtn;
     private javax.swing.JLabel backToAdminPage;
+    private javax.swing.JButton deleteBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable productTable;
+    private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
 }

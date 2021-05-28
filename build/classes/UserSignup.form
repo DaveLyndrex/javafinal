@@ -262,10 +262,10 @@
                                   </Group>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="inputUsername" min="-2" pref="165" max="-2" attributes="0"/>
-                                  <Component id="inputLname" min="-2" pref="165" max="-2" attributes="0"/>
-                                  <Component id="inputPassword" min="-2" pref="165" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="inputUsername" pref="165" max="32767" attributes="0"/>
+                                  <Component id="inputLname" pref="165" max="32767" attributes="0"/>
+                                  <Component id="inputPassword" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -302,9 +302,9 @@
                           <Component id="inputUsername" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="inputPassword" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                          <Component id="jLabel5" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jLabel5" pref="32" max="32767" attributes="0"/>
+                          <Component id="inputPassword" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="signup" min="-2" pref="32" max="-2" attributes="0"/>
@@ -330,8 +330,6 @@
                 <Property name="text" type="java.lang.String" value=" Username:"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="inputPassword">
             </Component>
             <Component class="javax.swing.JTextField" name="inputFname">
             </Component>
@@ -373,6 +371,8 @@
             <Component class="javax.swing.JTextField" name="inputLname">
             </Component>
             <Component class="javax.swing.JTextField" name="inputUsername">
+            </Component>
+            <Component class="javax.swing.JPasswordField" name="inputPassword">
             </Component>
           </SubComponents>
         </Container>

@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 
-import java.sql.*;
-import javax.swing.JOptionPane;
+import java.sql.*;//database connection
+import javax.swing.JOptionPane;//alert messages
+import javax.swing.table.DefaultTableModel;//table
+
 public class AdminPage extends javax.swing.JFrame {
 
     /**
@@ -13,6 +15,8 @@ public class AdminPage extends javax.swing.JFrame {
      */
     public AdminPage() {
         initComponents();
+        this.setLocationRelativeTo(null);//setting jframe into center
+        display();//call the display function that contains the display of the all users, all admins,....
     }
 
     /**
@@ -47,34 +51,31 @@ public class AdminPage extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        requests = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        approvedOrders = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        users = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
+        admins = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
+        disabledUsers = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
+        disabledAdmins = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
+        orders = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
+        sales = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         jLabel30 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
+        stocks = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -165,7 +166,7 @@ public class AdminPage extends javax.swing.JFrame {
         });
         container1.add(dashboardDropDown, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 125, -1));
 
-        productsDropDown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Products", "Orders", "Order History" }));
+        productsDropDown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Products", "Orders" }));
         productsDropDown.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 productsDropDownMouseClicked(evt);
@@ -218,7 +219,8 @@ public class AdminPage extends javax.swing.JFrame {
         jLabel9.setText("   User Product Requests");
         jLabel9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jLabel11.setText("jLabel11");
+        requests.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        requests.setForeground(new java.awt.Color(0, 102, 255));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -226,15 +228,14 @@ public class AdminPage extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(68, 68, 68)
+                .addComponent(requests, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
+                .addComponent(requests, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9))
         );
@@ -242,9 +243,10 @@ public class AdminPage extends javax.swing.JFrame {
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, 150, 50));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel12.setText("   Products Approved");
+        jLabel12.setText("   Orders Approved");
 
-        jLabel13.setText("jLabel13");
+        approvedOrders.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        approvedOrders.setForeground(new java.awt.Color(0, 102, 255));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -256,14 +258,13 @@ public class AdminPage extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(65, 65, 65)
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(approvedOrders, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
+                .addComponent(approvedOrders, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12))
         );
@@ -273,7 +274,8 @@ public class AdminPage extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel16.setText("     Total Users");
 
-        jLabel17.setText("jLabel17");
+        users.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        users.setForeground(new java.awt.Color(0, 102, 255));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -284,15 +286,14 @@ public class AdminPage extends javax.swing.JFrame {
                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64)
+                .addComponent(users, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
+                .addComponent(users, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel16))
         );
@@ -302,7 +303,8 @@ public class AdminPage extends javax.swing.JFrame {
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel18.setText("  Total Admins");
 
-        jLabel19.setText("jLabel19");
+        admins.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        admins.setForeground(new java.awt.Color(0, 102, 255));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -314,15 +316,14 @@ public class AdminPage extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(66, 66, 66)
+                        .addComponent(admins, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
+                .addComponent(admins, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel18))
         );
@@ -332,7 +333,8 @@ public class AdminPage extends javax.swing.JFrame {
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel20.setText("    Total Disabled Users");
 
-        jLabel21.setText("jLabel21");
+        disabledUsers.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        disabledUsers.setForeground(new java.awt.Color(0, 102, 255));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -342,15 +344,14 @@ public class AdminPage extends javax.swing.JFrame {
                 .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65)
+                .addComponent(disabledUsers, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addGap(0, 10, Short.MAX_VALUE)
-                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(disabledUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel20))
         );
@@ -360,7 +361,8 @@ public class AdminPage extends javax.swing.JFrame {
         jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel26.setText(" Total Disabled Admins");
 
-        jLabel27.setText("jLabel27");
+        disabledAdmins.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        disabledAdmins.setForeground(new java.awt.Color(0, 102, 255));
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -371,53 +373,25 @@ public class AdminPage extends javax.swing.JFrame {
                 .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64)
+                .addComponent(disabledAdmins, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
+                .addComponent(disabledAdmins, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel26))
         );
 
         jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 210, -1, -1));
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel22.setText(" Total Ordered Cancel");
-
-        jLabel23.setText("jLabel23");
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel22))
-        );
-
-        jPanel1.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, -1, -1));
-
         jLabel24.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel24.setText("    Orders in Process");
+        jLabel24.setText("            Orders ");
 
-        jLabel25.setText("jLabel25");
+        orders.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        orders.setForeground(new java.awt.Color(0, 102, 255));
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -428,25 +402,25 @@ public class AdminPage extends javax.swing.JFrame {
                 .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(68, 68, 68)
+                .addComponent(orders, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addGap(0, 11, Short.MAX_VALUE)
-                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(orders, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel24))
         );
 
-        jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 280, -1, -1));
+        jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 280, -1, -1));
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel28.setText("      Total Sales");
 
-        jLabel29.setText("jLabel29");
+        sales.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        sales.setForeground(new java.awt.Color(0, 102, 255));
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -458,15 +432,14 @@ public class AdminPage extends javax.swing.JFrame {
                         .addGap(77, 77, 77)
                         .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(104, 104, 104)
+                        .addComponent(sales, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                .addGap(0, 10, Short.MAX_VALUE)
-                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sales, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel28))
         );
@@ -476,7 +449,8 @@ public class AdminPage extends javax.swing.JFrame {
         jLabel30.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel30.setText("Total Products Stocks");
 
-        jLabel31.setText("jLabel31");
+        stocks.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        stocks.setForeground(new java.awt.Color(0, 102, 255));
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -488,15 +462,14 @@ public class AdminPage extends javax.swing.JFrame {
                         .addGap(68, 68, 68)
                         .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGap(109, 109, 109)
-                        .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(121, 121, 121)
+                        .addComponent(stocks, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
+                .addComponent(stocks, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel30))
         );
@@ -526,27 +499,27 @@ public class AdminPage extends javax.swing.JFrame {
     }//GEN-LAST:event_searchFieldActionPerformed
 
     private void dashboardDropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardDropDownActionPerformed
-        if(this.dashboardDropDown.getSelectedIndex() == 0){
-            new AdminPage().setVisible(true);
-            this.setVisible(false);
+        if (this.dashboardDropDown.getSelectedIndex() == 0) {//when selecting the index zero in dashboard combobox,
+            new AdminPage().setVisible(true);//set the page into admin page
+            this.setVisible(false);//set the visibility of this page as false
         }
-        if(this.dashboardDropDown.getSelectedIndex() == 1){
-            new Users().setVisible(true);
-            this.setVisible(false);
+        if (this.dashboardDropDown.getSelectedIndex() == 1) {//when selecting the index 1 in dashboard combobox,
+            new Users().setVisible(true);//set the page into users page
+            this.setVisible(false);//set the visibility of this page as false
         }
-        if(this.dashboardDropDown.getSelectedIndex()== 2){
+        if (this.dashboardDropDown.getSelectedIndex() == 2) {
             new Admins().setVisible(true);
             this.setVisible(false);
         }
-        if(this.dashboardDropDown.getSelectedIndex() == 3){
+        if (this.dashboardDropDown.getSelectedIndex() == 3) {
             new DisabledUsers().setVisible(true);
             this.setVisible(false);
         }
-        if(this.dashboardDropDown.getSelectedIndex() == 4){
+        if (this.dashboardDropDown.getSelectedIndex() == 4) {
             new DisabledAdmins().setVisible(true);
             this.setVisible(false);
         }
-        
+
     }//GEN-LAST:event_dashboardDropDownActionPerformed
 
     private void productsDropDownMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productsDropDownMouseClicked
@@ -554,29 +527,26 @@ public class AdminPage extends javax.swing.JFrame {
     }//GEN-LAST:event_productsDropDownMouseClicked
 
     private void productsDropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productsDropDownActionPerformed
-        if(this.productsDropDown.getSelectedIndex() == 0){
+        if (this.productsDropDown.getSelectedIndex() == 0) {
             new Products().setVisible(true);
             this.setVisible(false);
         }
-        if(this.productsDropDown.getSelectedIndex() == 1){
+        if (this.productsDropDown.getSelectedIndex() == 1) {
             new Orders().setVisible(true);
             this.setVisible(false);
         }
-        if(this.productsDropDown.getSelectedIndex() == 2){
-            new OrderHistory().setVisible(true);
-            this.setVisible(false);
-        }
+        
     }//GEN-LAST:event_productsDropDownActionPerformed
 
     private void showRequestsDropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showRequestsDropDownActionPerformed
-        if(this.showRequestsDropDown.getSelectedIndex() == 0){
-            new UserRequests().setVisible(true);
+        if (this.showRequestsDropDown.getSelectedIndex() == 0) {
+            new UserProductRequests().setVisible(true);
             this.setVisible(false);
         }
     }//GEN-LAST:event_showRequestsDropDownActionPerformed
 
     private void showProductArchivedDropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showProductArchivedDropDownActionPerformed
-        if(this.showProductArchivedDropDown.getSelectedIndex() == 0){
+        if (this.showProductArchivedDropDown.getSelectedIndex() == 0) {
             new ArchivedProducts().setVisible(true);
             this.setVisible(false);
         }
@@ -598,7 +568,7 @@ public class AdminPage extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -624,33 +594,26 @@ public class AdminPage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel adminName;
+    private javax.swing.JLabel admins;
+    private javax.swing.JLabel approvedOrders;
     private javax.swing.JPanel container1;
     private javax.swing.JComboBox<String> dashboardDropDown;
+    private javax.swing.JLabel disabledAdmins;
+    private javax.swing.JLabel disabledUsers;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -668,12 +631,200 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
+    private javax.swing.JLabel orders;
     private javax.swing.JComboBox<String> productsDropDown;
+    private javax.swing.JLabel requests;
+    private javax.swing.JLabel sales;
     private javax.swing.JButton search;
     private javax.swing.JTextField searchField;
     private javax.swing.JComboBox<String> showProductArchivedDropDown;
     private javax.swing.JComboBox<String> showRequestsDropDown;
     private javax.swing.JLabel signout;
+    private javax.swing.JLabel stocks;
+    private javax.swing.JLabel users;
     // End of variables declaration//GEN-END:variables
+
+    public void display() {
+        //count all users
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/javafinal", "root", "");
+            Statement stmt = con.createStatement();
+            ResultSet datas = stmt.executeQuery("select * from `users`");
+
+            int countUsers = 0;
+            while (datas.next()) {
+                countUsers++;
+
+            }
+            String calcUsers = String.valueOf(countUsers);
+            users.setText(calcUsers);
+
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        //count all admins
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/javafinal", "root", "");
+            Statement stmt = con.createStatement();
+            ResultSet datas = stmt.executeQuery("select * from `admins`");
+
+            int countAdmins = 0;
+            while (datas.next()) {
+                countAdmins++;
+
+            }
+            String calcAdmins = String.valueOf(countAdmins);
+            admins.setText(calcAdmins);
+
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        //count all disabledusers
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/javafinal", "root", "");
+            Statement stmt = con.createStatement();
+            ResultSet datas = stmt.executeQuery("select * from `disabledusers`");
+
+            int countDisabledUsers = 0;
+            while (datas.next()) {
+                countDisabledUsers++;
+
+            }
+            String calcDisabledUsers = String.valueOf(countDisabledUsers);
+            disabledUsers.setText(calcDisabledUsers);
+
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        //count all disabledAdmins
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/javafinal", "root", "");
+            Statement stmt = con.createStatement();
+            ResultSet datas = stmt.executeQuery("select * from `disabledadmins`");
+
+            int countDisabledAdmins = 0;
+            while (datas.next()) {
+                countDisabledAdmins++;
+
+            }
+            String calcDisabledAdmins = String.valueOf(countDisabledAdmins);
+            disabledAdmins.setText(calcDisabledAdmins);
+
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        //count all user product requests
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/javafinal", "root", "");
+            Statement stmt = con.createStatement();
+            ResultSet datas = stmt.executeQuery("select * from `requestproducts`");
+
+            int countRequestProducts = 0;
+            while (datas.next()) {
+                countRequestProducts++;
+
+            }
+            String calcRequestProducts = String.valueOf(countRequestProducts);
+            requests.setText(calcRequestProducts);
+
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        //count all approved orders
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/javafinal", "root", "");
+            Statement stmt = con.createStatement();
+            ResultSet datas = stmt.executeQuery("select * from `approveorders`");
+
+            int countApprovedOrders = 0;
+            while (datas.next()) {
+                countApprovedOrders++;
+
+            }
+            String calcApprovedOrders = String.valueOf(countApprovedOrders);
+            approvedOrders.setText(calcApprovedOrders);
+
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        //count all ordered products
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/javafinal", "root", "");
+            Statement stmt = con.createStatement();
+            ResultSet datas = stmt.executeQuery("select * from `orderedproducts`");
+
+            int countOrderedProducts = 0;
+            while (datas.next()) {
+                countOrderedProducts++;
+
+            }
+            String calcOrderedProducts = String.valueOf(countOrderedProducts);
+            orders.setText(calcOrderedProducts);
+
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        //Count total sales
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/javafinal", "root", "");
+            Statement stmt = con.createStatement();
+            ResultSet datas = stmt.executeQuery("select * from `approveorders` ");
+
+            int countSales = 0;
+            while (datas.next()) {
+                countSales += datas.getInt("totalprice");
+
+            }
+            String calcSales = String.valueOf(countSales);
+            sales.setText(calcSales);
+
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        //Count total stocks
+        //Count total sales
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/javafinal", "root", "");
+            Statement stmt = con.createStatement();
+            ResultSet datas = stmt.executeQuery("select * from `products` ");
+
+            int countStocks = 0;
+            while (datas.next()) {
+                countStocks += datas.getInt("stocks");
+
+            }
+            String calcStocks = String.valueOf(countStocks);
+            stocks.setText(calcStocks);
+
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
 }

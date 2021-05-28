@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 import java.sql.*;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 public class Orders extends javax.swing.JFrame {
 
     /**
@@ -12,6 +15,34 @@ public class Orders extends javax.swing.JFrame {
      */
     public Orders() {
         initComponents();
+//        this.setLocationRelativeTo(null);
+        getData();
+    }
+
+    public void getData() {
+        int count = 0;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javafinal", "root", "");
+            Statement stmt = con.createStatement();
+
+            ResultSet data = stmt.executeQuery("SELECT * FROM `orderedproducts`");
+            DefaultTableModel model = (DefaultTableModel) ordersTable.getModel();
+            while (data.next()) {
+
+                count = 1;
+                model.addRow(new Object[]{data.getInt("order_id"), data.getString("photo"), data.getString("name"), data.getString("brand"), data.getString("description"), data.getInt("totalPrice"), data.getInt("quantity"), data.getString("status"), data.getString("fullname"), data.getString("address"), data.getString("email")});
+
+            }
+
+            if (count == 0) {
+                JOptionPane.showMessageDialog(null, "No data found!.", "Message for MySQL", JOptionPane.WARNING_MESSAGE);
+            }
+            con.close();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -28,7 +59,8 @@ public class Orders extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         backToAdminPage = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        ordersTable = new javax.swing.JTable();
+        reviewBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(620, 480));
@@ -71,28 +103,34 @@ public class Orders extends javax.swing.JFrame {
             }
         });
 
-        jTable2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        ordersTable.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        ordersTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "User", "ProductId", "Photo", "Name", "Brand", "Desc", "Price", "Quantity", "Fullname", "Address", "Email", "Payment", "Action"
+                "ProductId", "Photo", "Name", "Brand", "Desc", "totalPrice", "Quantity", "Status", "Fullname", "Address", "Email"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jTable2.setGridColor(new java.awt.Color(51, 51, 51));
-        jScrollPane2.setViewportView(jTable2);
+        ordersTable.setGridColor(new java.awt.Color(51, 51, 51));
+        jScrollPane2.setViewportView(ordersTable);
+
+        reviewBtn.setBackground(new java.awt.Color(51, 153, 0));
+        reviewBtn.setForeground(new java.awt.Color(255, 255, 255));
+        reviewBtn.setText("Review");
+        reviewBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reviewBtnMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -106,7 +144,10 @@ public class Orders extends javax.swing.JFrame {
                         .addGap(107, 107, 107)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 161, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2))
+                    .addComponent(jScrollPane2)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(reviewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -117,8 +158,10 @@ public class Orders extends javax.swing.JFrame {
                     .addComponent(backToAdminPage)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(reviewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -139,6 +182,42 @@ public class Orders extends javax.swing.JFrame {
         new AdminPage().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_backToAdminPageMouseClicked
+
+    DisplayOrder DisplayOrder = new DisplayOrder();
+
+    private void reviewBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reviewBtnMouseClicked
+        DefaultTableModel model = (DefaultTableModel) ordersTable.getModel();
+        int row = ordersTable.getSelectedRow();
+
+        String id = model.getValueAt(row, 0).toString();
+        String photo = model.getValueAt(row, 1).toString();
+        String name = model.getValueAt(row, 2).toString();
+        String brand = model.getValueAt(row, 3).toString();
+        String description = model.getValueAt(row, 4).toString();
+        String totalPrice = model.getValueAt(row, 5).toString();
+        String quantity = model.getValueAt(row, 6).toString();
+        String status = model.getValueAt(row, 7).toString();
+        String fullname = model.getValueAt(row, 8).toString();
+        String address = model.getValueAt(row, 9).toString();
+        String email = model.getValueAt(row, 10).toString();
+
+        DisplayOrder.pack();
+        DisplayOrder.getDefaultCloseOperation();
+        DisplayOrder.product_id.setText(id);
+        DisplayOrder.photo.setText(photo);
+        DisplayOrder.name.setText(name);
+        DisplayOrder.brand.setText(brand);
+        DisplayOrder.description.setText(description);
+        DisplayOrder.totalPrice.setText(totalPrice);
+        DisplayOrder.quantity.setText(quantity);
+        DisplayOrder.status.setText(status);
+        DisplayOrder.fullname.setText(fullname);
+        DisplayOrder.address.setText(address);
+        DisplayOrder.email.setText(email);
+
+        DisplayOrder.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_reviewBtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -181,6 +260,7 @@ public class Orders extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    public static javax.swing.JTable ordersTable;
+    private javax.swing.JButton reviewBtn;
     // End of variables declaration//GEN-END:variables
 }

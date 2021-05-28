@@ -5,6 +5,7 @@
  */
 
 import java.sql.*;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 public class Users extends javax.swing.JFrame {
@@ -14,6 +15,7 @@ public class Users extends javax.swing.JFrame {
      */
     public Users() {
         initComponents();
+        this.setLocationRelativeTo(null);
         getData();
     }
     
@@ -60,9 +62,11 @@ public class Users extends javax.swing.JFrame {
         userTable = new javax.swing.JTable();
         addUser = new javax.swing.JButton();
         backToAdminPage = new javax.swing.JLabel();
-        updateBtn = new javax.swing.JButton();
-        openUserAccount = new javax.swing.JButton();
+        disableUser = new javax.swing.JButton();
         deleteBtn = new javax.swing.JButton();
+        updateBtn1 = new javax.swing.JButton();
+        openUserAccount1 = new javax.swing.JButton();
+        addAsAdmin1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -132,44 +136,27 @@ public class Users extends javax.swing.JFrame {
         });
         jPanel1.add(addUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 90, -1, 30));
 
-        backToAdminPage.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        backToAdminPage.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         backToAdminPage.setForeground(new java.awt.Color(10, 117, 240));
-        backToAdminPage.setText(" ← back ");
+        backToAdminPage.setText("Home");
         backToAdminPage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         backToAdminPage.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 backToAdminPageMouseClicked(evt);
             }
         });
-        jPanel1.add(backToAdminPage, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, -1));
+        jPanel1.add(backToAdminPage, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 40, -1));
 
-        updateBtn.setBackground(new java.awt.Color(0, 153, 0));
-        updateBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        updateBtn.setForeground(new java.awt.Color(255, 255, 255));
-        updateBtn.setText("Update");
-        updateBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        updateBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+        disableUser.setBackground(new java.awt.Color(255, 255, 0));
+        disableUser.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        disableUser.setText("Disable User");
+        disableUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        disableUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                updateBtnMouseClicked(evt);
+                disableUserMouseClicked(evt);
             }
         });
-        updateBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateBtnActionPerformed(evt);
-            }
-        });
-        jPanel1.add(updateBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(457, 413, 80, 30));
-
-        openUserAccount.setBackground(new java.awt.Color(255, 255, 0));
-        openUserAccount.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        openUserAccount.setText("Open User Account");
-        openUserAccount.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        openUserAccount.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                openUserAccountMouseClicked(evt);
-            }
-        });
-        jPanel1.add(openUserAccount, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, -1, 30));
+        jPanel1.add(disableUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 410, -1, 30));
 
         deleteBtn.setBackground(new java.awt.Color(255, 0, 51));
         deleteBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -181,7 +168,46 @@ public class Users extends javax.swing.JFrame {
                 deleteBtnMouseClicked(evt);
             }
         });
-        jPanel1.add(deleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 413, -1, 30));
+        jPanel1.add(deleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 410, -1, 30));
+
+        updateBtn1.setBackground(new java.awt.Color(0, 153, 0));
+        updateBtn1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        updateBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        updateBtn1.setText("Update");
+        updateBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        updateBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                updateBtn1MouseClicked(evt);
+            }
+        });
+        updateBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateBtn1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(updateBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 410, 80, 30));
+
+        openUserAccount1.setBackground(new java.awt.Color(255, 255, 0));
+        openUserAccount1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        openUserAccount1.setText("Open User Account");
+        openUserAccount1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        openUserAccount1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                openUserAccount1MouseClicked(evt);
+            }
+        });
+        jPanel1.add(openUserAccount1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, -1, 30));
+
+        addAsAdmin1.setBackground(new java.awt.Color(255, 255, 0));
+        addAsAdmin1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        addAsAdmin1.setText("Add as Admin");
+        addAsAdmin1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addAsAdmin1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addAsAdmin1MouseClicked(evt);
+            }
+        });
+        jPanel1.add(addAsAdmin1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 410, 160, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 640, 480));
 
@@ -197,10 +223,81 @@ public class Users extends javax.swing.JFrame {
         new AddUser().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_addUserMouseClicked
-     Update update = new Update();
+     UpdateUser update = new UpdateUser();
     
-    private void updateBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateBtnMouseClicked
+   
+    
+    private void disableUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_disableUserMouseClicked
+        DefaultTableModel model = (DefaultTableModel) userTable.getModel();
+        int row = userTable.getSelectedRow();
+        try{
+            JFrame frame = new JFrame("Disable as User");
+            if(JOptionPane.showConfirmDialog(frame, "Are you sure you want to disable him/her as User?","Admin Message", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+               int identify = Integer.parseInt(model.getValueAt(row, 0).toString());
+               String firstname = (model.getValueAt(row, 1).toString());
+               String lastname= (model.getValueAt(row, 2).toString());
+               String username = (model.getValueAt(row, 3).toString());
+               String password = (model.getValueAt(row, 4).toString());
+               
+               
+               
+               Class.forName("com.mysql.jdbc.Driver");
+               Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javafinal","root","");
+               PreparedStatement stmt = con.prepareStatement ("INSERT INTO `disabledusers` (`user_id`,`firstname`, `lastname`, `username`, `password`) VALUES (default,?,?,?,?)");
+               PreparedStatement stmt1 = con.prepareStatement("DELETE FROM users WHERE user_id =?");
+              
+               stmt.setString(1,firstname);
+               stmt.setString(2,lastname);
+               stmt.setString(3,username);
+               stmt.setString(4,password);
+        
+               stmt.executeUpdate();
+               
+               stmt1.setInt(1,identify);
+               stmt1.executeUpdate();
+               model.removeRow(row);
+               
+               JOptionPane.showMessageDialog(null, "Successfully Disabled as User.", "Message from MySQL", JOptionPane.INFORMATION_MESSAGE);
+               JOptionPane.showMessageDialog(null, "He/she will be deleted as a user.", "Message from MySQL", JOptionPane.INFORMATION_MESSAGE);
+               
+               new DisabledUsers().setVisible(true);
+               this.setVisible(false);
+               
+                JOptionPane.showMessageDialog(null, "New data added.", "Message from MySQL", JOptionPane.INFORMATION_MESSAGE);
+               
+            }
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage(),"Alert", JOptionPane.WARNING_MESSAGE);
+        }
+        
+        
+        
+    }//GEN-LAST:event_disableUserMouseClicked
+
+    private void deleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteBtnMouseClicked
+        DefaultTableModel model = (DefaultTableModel) userTable.getModel();
+        int row = userTable.getSelectedRow();
        
+       try{
+           
+           JFrame frame = new JFrame ("Delete");
+           if (JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete?","Delete", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+               int identify = Integer.parseInt(model.getValueAt(row, 0).toString());
+               Class.forName("com.mysql.jdbc.Driver");
+               Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javafinal","root","");
+               PreparedStatement stmt = con.prepareStatement("DELETE FROM users WHERE user_id =?");
+               stmt.setInt(1,identify);
+               stmt.executeUpdate();
+               model.removeRow(row);
+               
+               JOptionPane.showMessageDialog(null, "Successfully Deleted.", "Message from MySQL", JOptionPane.INFORMATION_MESSAGE);
+           }
+       }catch (Exception e){
+           JOptionPane.showMessageDialog(null, e.getMessage(),"Message from MySQL", JOptionPane.WARNING_MESSAGE);
+       }
+    }//GEN-LAST:event_deleteBtnMouseClicked
+
+    private void updateBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateBtn1MouseClicked
         DefaultTableModel model = (DefaultTableModel) userTable.getModel();
         int row = userTable.getSelectedRow();
         String id = model.getValueAt(row, 0).toString();
@@ -219,23 +316,63 @@ public class Users extends javax.swing.JFrame {
         
         update.setVisible(true);
         this.setVisible(false);
-        
-    }//GEN-LAST:event_updateBtnMouseClicked
+    }//GEN-LAST:event_updateBtn1MouseClicked
 
-   
-    
-    private void openUserAccountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_openUserAccountMouseClicked
+    private void updateBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updateBtn1ActionPerformed
+
+    private void openUserAccount1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_openUserAccount1MouseClicked
         new UserLogin().setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_openUserAccountMouseClicked
+    }//GEN-LAST:event_openUserAccount1MouseClicked
 
-    private void deleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteBtnMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_deleteBtnMouseClicked
-
-    private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_updateBtnActionPerformed
+    private void addAsAdmin1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addAsAdmin1MouseClicked
+        DefaultTableModel model = (DefaultTableModel) userTable.getModel();
+        int row = userTable.getSelectedRow();
+        try{
+            JFrame frame = new JFrame("Add as Admin");
+            if(JOptionPane.showConfirmDialog(frame, "Are you sure you want to add him/her as Admin?","Admin Message", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+               int identify = Integer.parseInt(model.getValueAt(row, 0).toString());
+               String firstname = (model.getValueAt(row, 1).toString());
+               String lastname= (model.getValueAt(row, 2).toString());
+               String username = (model.getValueAt(row, 3).toString());
+               String password = (model.getValueAt(row, 4).toString());
+               
+               
+               
+               Class.forName("com.mysql.jdbc.Driver");
+               Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javafinal","root","");
+               PreparedStatement stmt = con.prepareStatement ("INSERT INTO `admins` (`admin_id`,`firstname`, `lastname`, `username`, `password`) VALUES (default,?,?,?,?)");
+               PreparedStatement stmt1 = con.prepareStatement("DELETE FROM users WHERE user_id =?");
+               
+               
+               stmt.setString(1,firstname);
+               stmt.setString(2,lastname);
+               stmt.setString(3,username);
+               stmt.setString(4,password);
+        
+               stmt.executeUpdate();
+                
+               stmt1.setInt(1,identify);
+               stmt1.executeUpdate();
+               model.removeRow(row);
+               
+               stmt1.executeUpdate();
+              
+                     
+               JOptionPane.showMessageDialog(null, "Successfully Added as Admin.", "Message from MySQL", JOptionPane.INFORMATION_MESSAGE);
+               
+               new Admins().setVisible(true);
+               this.setVisible(false);
+               
+               JOptionPane.showMessageDialog(null, "New data added.", "Message from MySQL", JOptionPane.INFORMATION_MESSAGE);
+               
+            }
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage(),"Message from MySQL", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_addAsAdmin1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -273,15 +410,17 @@ public class Users extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addAsAdmin1;
     private javax.swing.JButton addUser;
     private javax.swing.JLabel backToAdminPage;
     private javax.swing.JButton deleteBtn;
+    private javax.swing.JButton disableUser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JButton openUserAccount;
-    private javax.swing.JButton updateBtn;
-    private javax.swing.JTable userTable;
+    private javax.swing.JButton openUserAccount1;
+    private javax.swing.JButton updateBtn1;
+    public static javax.swing.JTable userTable;
     // End of variables declaration//GEN-END:variables
 }

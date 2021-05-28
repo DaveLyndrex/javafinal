@@ -13,6 +13,7 @@ public class UserPage extends javax.swing.JFrame {
      */
     public UserPage() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

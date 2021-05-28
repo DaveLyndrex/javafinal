@@ -5,14 +5,16 @@
  */
 
 import java.sql.*;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 public class Admins extends javax.swing.JFrame {
     /**
-     * Creates new form Admins
+     *
      */
     public Admins() {
         initComponents();
+        this.setLocationRelativeTo(null);
         getdata();
         
     }
@@ -61,6 +63,8 @@ public class Admins extends javax.swing.JFrame {
         backToAdminPage = new javax.swing.JLabel();
         disableAdmin = new javax.swing.JButton();
         openAdminAccount = new javax.swing.JButton();
+        updateBtn = new javax.swing.JButton();
+        deleteBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(620, 480));
@@ -98,17 +102,9 @@ public class Admins extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "First Name", "Last Name", "Username", "Password", "Status"
+                "ID", "First Name", "Last Namel", "Username", "Password", "Status"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         adminTable.setGridColor(new java.awt.Color(51, 51, 51));
         jScrollPane2.setViewportView(adminTable);
 
@@ -124,9 +120,9 @@ public class Admins extends javax.swing.JFrame {
         });
 
         backToAdminPage.setBackground(new java.awt.Color(0, 0, 0));
-        backToAdminPage.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        backToAdminPage.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         backToAdminPage.setForeground(new java.awt.Color(10, 117, 240));
-        backToAdminPage.setText(" ← back ");
+        backToAdminPage.setText("Home");
         backToAdminPage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         backToAdminPage.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -155,31 +151,57 @@ public class Admins extends javax.swing.JFrame {
             }
         });
 
+        updateBtn.setBackground(new java.awt.Color(0, 153, 0));
+        updateBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        updateBtn.setForeground(new java.awt.Color(255, 255, 255));
+        updateBtn.setText("Update");
+        updateBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        updateBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                updateBtnMouseClicked(evt);
+            }
+        });
+        updateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateBtnActionPerformed(evt);
+            }
+        });
+
+        deleteBtn.setBackground(new java.awt.Color(255, 0, 51));
+        deleteBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        deleteBtn.setForeground(new java.awt.Color(255, 255, 255));
+        deleteBtn.setText("Delete");
+        deleteBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        deleteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deleteBtnMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(addAdmin))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2))
+                        .addComponent(backToAdminPage, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(132, 132, 132)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 519, Short.MAX_VALUE)
-                                .addComponent(addAdmin))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(backToAdminPage, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(132, 132, 132)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
                         .addComponent(openAdminAccount)
+                        .addGap(18, 18, 18)
+                        .addComponent(disableAdmin)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(disableAdmin)))
+                        .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -193,15 +215,13 @@ public class Admins extends javax.swing.JFrame {
                 .addComponent(addAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(disableAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(14, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(openAdminAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24))))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(disableAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(openAdminAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -228,13 +248,110 @@ public class Admins extends javax.swing.JFrame {
     }//GEN-LAST:event_addAdminMouseClicked
 
     private void disableAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_disableAdminMouseClicked
-        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) adminTable.getModel();
+        int row = adminTable.getSelectedRow();
+         try{
+            JFrame frame = new JFrame("Disable Admin");
+            if(JOptionPane.showConfirmDialog(frame, "Are you sure you want to disable this as Admin?","Super Admin Message", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+               int identify = Integer.parseInt(model.getValueAt(row, 0).toString());
+               String firstname = (model.getValueAt(row, 1).toString());
+               String lastname= (model.getValueAt(row, 2).toString());
+               String username = (model.getValueAt(row, 3).toString());
+               String password = (model.getValueAt(row, 4).toString());
+               
+                 
+               
+               Class.forName("com.mysql.jdbc.Driver");
+               Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javafinal","root","");
+               PreparedStatement stmt = con.prepareStatement ("INSERT INTO `disabledadmins` (`admin_id`,`firstname`, `lastname`, `username`, `password`) VALUES (default,?,?,?,?)");
+               PreparedStatement stmt1 = con.prepareStatement("DELETE FROM admins WHERE admin_id =?");
+               
+               
+               stmt.setString(1,firstname);
+               stmt.setString(2,lastname);
+               stmt.setString(3,username);
+               stmt.setString(4,password);
+        
+               stmt.executeUpdate();
+                
+               stmt1.setInt(1,identify);
+               stmt1.executeUpdate();
+               model.removeRow(row);
+               
+               stmt1.executeUpdate();
+              
+                     
+               JOptionPane.showMessageDialog(null, "Successfully Disabled as Admin.", "Message from MySQL", JOptionPane.INFORMATION_MESSAGE);
+               
+               new DisabledAdmins().setVisible(true);
+               this.setVisible(false);
+               
+               JOptionPane.showMessageDialog(null, "New data added.", "Message from MySQL", JOptionPane.INFORMATION_MESSAGE);
+               
+            }
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage(),"Message from MySQL", JOptionPane.WARNING_MESSAGE);
+        }
+        
+        
+        
     }//GEN-LAST:event_disableAdminMouseClicked
 
     private void openAdminAccountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_openAdminAccountMouseClicked
-        new AdminLogin().setVisible(true);
+        new OpenAdmin().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_openAdminAccountMouseClicked
+
+     UpdateAdmin UpdateAdmin = new UpdateAdmin();
+     
+    private void updateBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateBtnMouseClicked
+        DefaultTableModel model = (DefaultTableModel) adminTable.getModel();
+        int row = adminTable.getSelectedRow();
+        
+        String id = model.getValueAt(row, 0).toString();
+        String firstname = model.getValueAt(row, 1).toString();
+        String lastname = model.getValueAt(row, 2).toString();
+        String username = model.getValueAt(row, 3).toString();
+        String password = model.getValueAt(row, 4).toString();
+
+        UpdateAdmin .pack();
+        UpdateAdmin.getDefaultCloseOperation();
+        UpdateAdmin.admin_id.setText(id);
+        UpdateAdmin.inputFirstname.setText(firstname);
+        UpdateAdmin.inputLastname.setText(lastname);
+        UpdateAdmin.inputUsername.setText(username);
+        UpdateAdmin.inputPassword.setText(password);
+
+        UpdateAdmin.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_updateBtnMouseClicked
+
+    private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updateBtnActionPerformed
+
+    private void deleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteBtnMouseClicked
+        DefaultTableModel model = (DefaultTableModel) adminTable.getModel();
+        int row = adminTable.getSelectedRow();
+
+        try{
+
+            JFrame frame = new JFrame ("Delete");
+            if (JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete?","Admin Message", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+                int identify = Integer.parseInt(model.getValueAt(row, 0).toString());
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javafinal","root","");
+                PreparedStatement stmt = con.prepareStatement("DELETE FROM admins WHERE admin_id =?");
+                stmt.setInt(1,identify);
+                stmt.executeUpdate();
+                model.removeRow(row);
+                
+                JOptionPane.showMessageDialog(null, "Successfully Deleted.", "Message from MySQL", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage(),"Alert", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_deleteBtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -273,13 +390,15 @@ public class Admins extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addAdmin;
-    private javax.swing.JTable adminTable;
+    public static javax.swing.JTable adminTable;
     private javax.swing.JLabel backToAdminPage;
+    private javax.swing.JButton deleteBtn;
     private javax.swing.JButton disableAdmin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton openAdminAccount;
+    private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
 }

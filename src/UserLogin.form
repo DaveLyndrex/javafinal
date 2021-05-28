@@ -329,8 +329,8 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="inputUsername" alignment="0" pref="165" max="32767" attributes="0"/>
-                                      <Component id="inputPassword" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="inputUsername" pref="165" max="32767" attributes="0"/>
+                                      <Component id="inputPassword" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -352,9 +352,9 @@
                               <Component id="inputUsername" alignment="1" min="-2" pref="31" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel5" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                              <Component id="inputPassword" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jLabel5" pref="32" max="32767" attributes="0"/>
+                              <Component id="inputPassword" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="login" min="-2" pref="32" max="-2" attributes="0"/>
@@ -382,8 +382,6 @@
                     <Property name="text" type="java.lang.String" value=" Username:"/>
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                   </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="inputPassword">
                 </Component>
                 <Component class="javax.swing.JTextField" name="inputUsername">
                 </Component>
@@ -423,6 +421,8 @@
                       <Color id="Hand Cursor"/>
                     </Property>
                   </Properties>
+                </Component>
+                <Component class="javax.swing.JPasswordField" name="inputPassword">
                 </Component>
               </SubComponents>
             </Container>

@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import java.sql.*;
-import javax.swing.JOptionPane;
+
+import java.sql.*;//mysql database
+import javax.swing.JFrame;//frame
+import javax.swing.JOptionPane;//alert
 public class AdminLogin extends javax.swing.JFrame {
 
     /**
@@ -12,8 +14,10 @@ public class AdminLogin extends javax.swing.JFrame {
      */
     public AdminLogin() {
         initComponents();
-    }
+        this.setLocationRelativeTo(null);//setting jframe into center.
+         }
 
+ 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -196,10 +200,10 @@ public class AdminLogin extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 140, 290, -1));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 140, 290, 250));
 
         jLabel16.setForeground(new java.awt.Color(10, 117, 240));
         jLabel16.setText("_________________________________________");
@@ -248,13 +252,13 @@ public class AdminLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backToUserLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backToUserLoginMouseClicked
-        new UserLogin().setVisible(true);
-        this.setVisible(false);
+        new UserLogin().setVisible(true);//redirect to UserLogin page in clicking the back.
+        this.setVisible(false);//setting false the visibility of this page.
     }//GEN-LAST:event_backToUserLoginMouseClicked
 
     private void loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginMouseClicked
-        new AdminPage().setVisible(true);
-        this.setVisible(false);
+        new AdminPage().setVisible(true);//redirent to AdminPage when clck the login btn.
+        this.setVisible(false);//setting false the visibility of this page.
     }//GEN-LAST:event_loginMouseClicked
 
     /**
@@ -287,7 +291,7 @@ public class AdminLogin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminLogin().setVisible(true);
+                new AdminLogin().setVisible(true);//this page will be visible.
             }
         });
     }

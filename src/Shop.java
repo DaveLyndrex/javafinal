@@ -5,8 +5,10 @@
  */
 
 import java.sql.*;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 public class Shop extends javax.swing.JFrame {
 
     /**
@@ -14,29 +16,30 @@ public class Shop extends javax.swing.JFrame {
      */
     public Shop() {
         initComponents();
+        this.setLocationRelativeTo(null);
         getData();
     }
-    
-    public void getData(){
+
+    public void getData() {
         int count = 0;
-        
-        try{
+
+        try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javafinal","root", "");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javafinal", "root", "");
             Statement stmt = con.createStatement();
-            
+
             ResultSet data = stmt.executeQuery("SELECT * FROM `products`");
-            DefaultTableModel model = (DefaultTableModel) productTable.getModel();
-            
-            while (data.next()){
-                count =1 ; 
-                model.addRow(new Object[]{data.getInt("product_id"), data.getString("photo"), data.getString("name"), data.getString("brand"), data.getString("description"), data.getInt("price"), data.getInt("stocks")});
+            DefaultTableModel model = (DefaultTableModel) productsTable.getModel();
+
+            while (data.next()) {
+                count = 1;
+                model.addRow(new Object[]{data.getString("product_id"),data.getString("photo"), data.getString("name"), data.getString("brand"), data.getString("description"), data.getInt("price"), data.getInt("stocks")});
             }
             if (count == 0) {
-               JOptionPane.showMessageDialog(null, "No data found!.", "Alert", JOptionPane.WARNING_MESSAGE);
-           }
+                JOptionPane.showMessageDialog(null, "No data found!.", "Message from MySQL", JOptionPane.WARNING_MESSAGE);
+            }
             con.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -52,10 +55,10 @@ public class Shop extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        productTable = new javax.swing.JTable();
+        productsTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        requestEditBtn = new javax.swing.JButton();
+        buyBtn = new javax.swing.JButton();
         backToUserPage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -65,15 +68,23 @@ public class Shop extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        productTable.setModel(new javax.swing.table.DefaultTableModel(
+        productsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Photo", "Name", "Brand", "Description", "Price", "Stocks"
+                "ID", "Photo", "Name", "Brand", "Description", "price", "stocks"
             }
-        ));
-        jScrollPane1.setViewportView(productTable);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(productsTable);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 590, 340));
 
@@ -81,28 +92,46 @@ public class Shop extends javax.swing.JFrame {
         jLabel1.setText("Order Now, Pay Later!");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
-        jButton1.setBackground(new java.awt.Color(10, 117, 240));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Request Edit");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 440, 140, 30));
+        requestEditBtn.setBackground(new java.awt.Color(51, 153, 0));
+        requestEditBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        requestEditBtn.setForeground(new java.awt.Color(255, 255, 255));
+        requestEditBtn.setText("Request Edit");
+        requestEditBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        requestEditBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                requestEditBtnMouseClicked(evt);
+            }
+        });
+        jPanel1.add(requestEditBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 440, 140, 40));
 
-        jButton2.setBackground(new java.awt.Color(10, 117, 240));
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Buy");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 440, 70, 30));
+        buyBtn.setBackground(new java.awt.Color(10, 117, 240));
+        buyBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        buyBtn.setForeground(new java.awt.Color(255, 255, 255));
+        buyBtn.setText("Buy");
+        buyBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        buyBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buyBtnMouseClicked(evt);
+            }
+        });
+        buyBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buyBtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(buyBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 440, 90, 40));
 
         backToUserPage.setBackground(new java.awt.Color(0, 0, 0));
-        backToUserPage.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        backToUserPage.setText(" back →");
+        backToUserPage.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        backToUserPage.setForeground(new java.awt.Color(0, 102, 255));
+        backToUserPage.setText("Home");
         backToUserPage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         backToUserPage.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 backToUserPageMouseClicked(evt);
             }
         });
-        jPanel1.add(backToUserPage, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, 50, -1));
+        jPanel1.add(backToUserPage, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 20, 50, 20));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 640, 530));
 
@@ -113,6 +142,70 @@ public class Shop extends javax.swing.JFrame {
         new UserPage().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_backToUserPageMouseClicked
+
+    BuyProcess buy = new BuyProcess();
+
+    private void buyBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buyBtnMouseClicked
+        DefaultTableModel model = (DefaultTableModel) productsTable.getModel();
+        int row = productsTable.getSelectedRow();
+
+        String id = model.getValueAt(row, 0).toString();
+        String product_photo = model.getValueAt(row, 1).toString();
+        String product_name = model.getValueAt(row, 2).toString();
+        String product_brand = model.getValueAt(row, 3).toString();
+        String product_description = model.getValueAt(row, 4).toString();
+        String product_price = model.getValueAt(row, 5).toString();
+        String product_stocks = model.getValueAt(row, 6).toString();
+
+        buy.pack();
+        buy.getDefaultCloseOperation();
+        buy.product_id.setText(id);
+        buy.photo.setText(product_photo);
+        buy.name.setText(product_name);
+        buy.brand.setText(product_brand);
+        buy.description.setText(product_description);
+        buy.price.setText(product_price);
+        buy.stocks.setText(product_stocks);
+
+        buy.setVisible(true);
+        this.setVisible(false);
+
+    }//GEN-LAST:event_buyBtnMouseClicked
+
+    RequestProcess RequestProcess = new RequestProcess();
+
+    private void requestEditBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_requestEditBtnMouseClicked
+        DefaultTableModel model = (DefaultTableModel) productsTable.getModel();
+        int row = productsTable.getSelectedRow();
+
+        String id = model.getValueAt(row, 0).toString();
+        String photo = model.getValueAt(row, 1).toString();
+        String name = model.getValueAt(row, 2).toString();
+        String brand = model.getValueAt(row, 3).toString();
+        String description = model.getValueAt(row, 4).toString();
+        String price = model.getValueAt(row, 5).toString();
+        String stocks = model.getValueAt(row, 6).toString();
+        
+
+        RequestProcess.pack();
+        RequestProcess.getDefaultCloseOperation();
+        RequestProcess.product_id.setText(id);
+        RequestProcess.photo.setText(photo);
+        RequestProcess.name.setText(name);
+        RequestProcess.brand.setText(brand);
+        RequestProcess.description.setText(description);
+        RequestProcess.price.setText(price);
+        RequestProcess.stocks.setText(stocks);
+        
+        
+
+        RequestProcess.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_requestEditBtnMouseClicked
+
+    private void buyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buyBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -151,11 +244,11 @@ public class Shop extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel backToUserPage;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton buyBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable productTable;
+    public static javax.swing.JTable productsTable;
+    private javax.swing.JButton requestEditBtn;
     // End of variables declaration//GEN-END:variables
 }

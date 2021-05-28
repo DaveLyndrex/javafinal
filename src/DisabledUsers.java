@@ -5,7 +5,9 @@
  */
 
 import java.sql.*;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 public class DisabledUsers extends javax.swing.JFrame {
 
     /**
@@ -13,6 +15,35 @@ public class DisabledUsers extends javax.swing.JFrame {
      */
     public DisabledUsers() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        getData();
+    }
+    
+    public void getData(){
+        int count = 0;
+        
+        
+       try {
+           Class.forName("com.mysql.jdbc.Driver");
+           Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javafinal", "root", "");
+           Statement stmt = con.createStatement();
+
+           ResultSet data = stmt.executeQuery("SELECT * FROM `disabledusers`");
+           DefaultTableModel model = (DefaultTableModel) disabledUsersTable.getModel();
+           while (data.next()) {
+              
+               count = 1;
+               model.addRow(new Object[]{data.getInt("user_id"), data.getString("firstname"), data.getString("lastname"), data.getString("username"), data.getString("password"),data.getString("status")});
+
+           }
+
+           if (count == 0) {
+               JOptionPane.showMessageDialog(null, "No data found!.", "Message from MySQL", JOptionPane.WARNING_MESSAGE);
+           }
+           con.close();
+       } catch (Exception e) {
+           System.out.println(e.getMessage());
+       }
     }
 
     /**
@@ -28,9 +59,10 @@ public class DisabledUsers extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        disabledUsersTable = new javax.swing.JTable();
         backToAdminPage = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        enableUser = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(620, 480));
@@ -42,7 +74,7 @@ public class DisabledUsers extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("   Disabled Users");
+        jLabel1.setText(" Disabled Users");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -61,33 +93,30 @@ public class DisabledUsers extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        jTable2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        disabledUsersTable.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        disabledUsersTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Username", "Email", "Password", "Status", "Action"
+                "ID", "First Name", "Last Name", "Username", "Password", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jTable2.setGridColor(new java.awt.Color(51, 51, 51));
-        jScrollPane2.setViewportView(jTable2);
+        disabledUsersTable.setGridColor(new java.awt.Color(51, 51, 51));
+        jScrollPane2.setViewportView(disabledUsersTable);
 
         backToAdminPage.setBackground(new java.awt.Color(0, 0, 0));
-        backToAdminPage.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        backToAdminPage.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         backToAdminPage.setForeground(new java.awt.Color(10, 117, 240));
-        backToAdminPage.setText(" ← back ");
+        backToAdminPage.setText("Home");
         backToAdminPage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         backToAdminPage.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -99,21 +128,34 @@ public class DisabledUsers extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(10, 117, 240));
         jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        enableUser.setBackground(new java.awt.Color(0, 153, 0));
+        enableUser.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        enableUser.setForeground(new java.awt.Color(255, 255, 255));
+        enableUser.setText("Enable User");
+        enableUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        enableUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                enableUserMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(backToAdminPage, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(147, 147, 147)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(enableUser)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(backToAdminPage, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(147, 147, 147)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(39, 39, 39)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(33, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -127,9 +169,11 @@ public class DisabledUsers extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(backToAdminPage))
-                .addGap(48, 48, 48)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addGap(7, 7, 7)
+                .addComponent(enableUser, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(82, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -155,6 +199,49 @@ public class DisabledUsers extends javax.swing.JFrame {
         new AdminPage().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_backToAdminPageMouseClicked
+
+    private void enableUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_enableUserMouseClicked
+        DefaultTableModel model = (DefaultTableModel) disabledUsersTable.getModel();
+        int row = disabledUsersTable.getSelectedRow();
+        try{
+            JFrame frame = new JFrame("Enable User");
+            if(JOptionPane.showConfirmDialog(frame, "Are you sure you want to enable him/her as user?","Admin Message", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION){
+                int identify = Integer.parseInt(model.getValueAt(row, 0).toString());
+                String firstname = (model.getValueAt(row, 1).toString());
+                String lastname= (model.getValueAt(row, 2).toString());
+                String username = (model.getValueAt(row, 3).toString());
+                String password = (model.getValueAt(row, 4).toString());
+
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javafinal","root","");
+                PreparedStatement stmt = con.prepareStatement ("INSERT INTO `users` (`user_id`,`firstname`, `lastname`, `username`, `password`) VALUES (default,?,?,?,?)");
+                PreparedStatement stmt1 = con.prepareStatement("DELETE FROM disabledusers WHERE user_id =?");
+
+                stmt.setString(1,firstname);
+                stmt.setString(2,lastname);
+                stmt.setString(3,username);
+                stmt.setString(4,password);
+
+                stmt.executeUpdate();
+
+                stmt1.setInt(1,identify);
+                stmt1.executeUpdate();
+                model.removeRow(row);
+
+                stmt1.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "Successfully Enabled as User.", "Message from MySQL", JOptionPane.INFORMATION_MESSAGE);
+
+                new Users().setVisible(true);
+                this.setVisible(false);
+
+                JOptionPane.showMessageDialog(null, "New data added.", "Message from MySQL", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage(),"Message from MySQL", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_enableUserMouseClicked
 
     /**
      * @param args the command line arguments
@@ -193,11 +280,12 @@ public class DisabledUsers extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel backToAdminPage;
+    public static javax.swing.JTable disabledUsersTable;
+    private javax.swing.JButton enableUser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }
